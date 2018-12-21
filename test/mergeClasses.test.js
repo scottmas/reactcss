@@ -129,3 +129,41 @@ describe('Combine', () => {
     expect(mergeClasses(classes, [])).toEqual(after2)
   })
 })
+
+describe('Combine with optional default ', () => {
+  it('should assume all properties are under the default property when "default" is omitted with no activeNames', () => {
+    const classes = {
+      header: {
+        margin: '0px',
+      },
+      logo: {
+        color: 'blue',
+      },
+    }
+    const after = {
+      header: {
+        margin: '0px',
+      },
+      logo: {
+        color: 'blue',
+      },
+    }
+    expect(mergeClasses(classes)).toEqual(after)
+  })
+
+  it('should not assume properties are nested under default when "default" is omitted but activeNames are present', () => {
+    const classes = {
+      header: {
+        margin: '0px',
+      },
+      logo: {
+        color: 'blue',
+      },
+    }
+    const after = {}
+
+    const names = ['active']
+
+    expect(mergeClasses(classes, names)).toEqual(after)
+  })
+})
