@@ -1,7 +1,13 @@
 import _ from 'lodash'
 
 export const mergeClasses = (classes, activeNames = []) => {
+
+  if(!classes.default && activeNames.length === 0){
+    classes = { default: classes }
+  }
+  
   const styles = (classes.default && _.cloneDeep(classes.default)) || {}
+  
   activeNames.map((name) => {
     const toMerge = classes[name]
     if (toMerge) {
